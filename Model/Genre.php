@@ -21,7 +21,6 @@ class Genre
 
     public static function fetchAll()
     {
-        // Leggi i generi dal file JSON
         $genreString = file_get_contents(__DIR__ . "/genre_db.json");
         $genreList = json_decode($genreString, true);
         $genres = [];

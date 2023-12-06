@@ -3,9 +3,7 @@
 include __DIR__ . "/Genre.php";
 include __DIR__ . "/Product.php";
 
-// Aggiungi il controllo per la definizione di $genres
 if (!isset($genres) || !is_array($genres)) {
-    // Carica i generi dal file JSON
     $genreString = file_get_contents(__DIR__ . "/genre_db.json");
     $genreList = json_decode($genreString, true);
     $genres = [];
