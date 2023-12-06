@@ -3,7 +3,7 @@
 class Product
 {
     protected float $price;
-    private int $sconto = 0;
+    private int $discount = 0; // Modifica da sconto a discount
     protected int $quantity;
 
     public function __construct($price, $quantity)
@@ -14,11 +14,19 @@ class Product
 
     public function setDiscount($title)
     {
+        // Aggiorna la logica dello sconto per calcolare il prezzo scontato
         if ($title == 'Gunfight at Rio Bravo') {
-            return $this->sconto = 20;
-        } else {
-            return $this->sconto;
+            $this->discount = 20;
         }
+
+        // Calcola il prezzo scontato
+        $discountedPrice = $this->price - ($this->price * $this->discount / 100);
+
+        // Restituisci un array con il prezzo originale e scontato
+        return [
+            'original_price' => $this->price,
+            'discounted_price' => $discountedPrice
+        ];
     }
 }
 

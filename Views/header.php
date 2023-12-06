@@ -25,5 +25,19 @@
     <header>
         <div class="container text-center">
             <h1>OOP - Shop</h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php">Movies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="books.php">Books</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>

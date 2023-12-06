@@ -1,7 +1,19 @@
 <?php
 
 include __DIR__ . "/Genre.php";
-// include __DIR__ . "/Product.php";
+include __DIR__ . "/Product.php";
+
+// Aggiungi il controllo per la definizione di $genres
+if (!isset($genres) || !is_array($genres)) {
+    // Carica i generi dal file JSON
+    $genreString = file_get_contents(__DIR__ . "/genre_db.json");
+    $genreList = json_decode($genreString, true);
+    $genres = [];
+
+    foreach ($genreList as $item) {
+        $genres[] = new Genre($item);
+    }
+}
 
 class Movie
 {
@@ -27,7 +39,6 @@ class Movie
         $this->genres = $genres;
         $this->quantity = $quantity;
         $this->price = $price;
-
     }
 
     private function getVote()
@@ -63,6 +74,7 @@ class Movie
         include __DIR__ . '/../Views/card.php';
     }
 }
+
 $movieString = file_get_contents(__DIR__ . "/movie_db.json");
 $movieList = json_decode($movieString, true);
 
@@ -88,7 +100,7 @@ foreach ($movieList as $item) {
         $item['original_language'],
         $movieGenres,
         $quantity,
-        $item['price'] // Aggiunto il prezzo dal tuo file JSON
+        $item['price']
     );
 }
 ?>
