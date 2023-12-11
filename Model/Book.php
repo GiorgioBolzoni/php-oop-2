@@ -1,6 +1,8 @@
 <?php
+
 include __DIR__ . "/Genre.php";
 include __DIR__ . "/Product.php";
+include __DIR__ . "/Exception.php";
 
 class Book extends Product
 {
@@ -14,6 +16,11 @@ class Book extends Product
     function __construct($id, $title, $overview, $authors, $image, $genres, $quantity, $price)
     {
         parent::__construct($price, $quantity);
+
+        if ($quantity < 0 || $quantity > 10) {
+            throw new QuantityOutOfRangeException();
+        }
+
         $this->id = $id;
         $this->title = $title;
         $this->overview = $overview;
@@ -42,20 +49,10 @@ class Book extends Product
         return $template;
     }
 
-    public function setDiscount($title)
-    {
-        if ($title == 'Specification by Example') {
-            return 20;
-        } else {
-            return 0;
-        }
-    }
-
     public function printCard()
     {
-        $sconto = $this->setDiscount($this->title);
-        $discountedPrice = $this->getDiscountedPrice($sconto);
-
+        $this->setDiscount($this->title);
+        $sconto = $this->getDiscount();
         $image = $this->image;
         $title = strlen($this->title) > 28 ? substr($this->title, 0, 28) . '...' : $this->title;
         $content = substr($this->overview, 0, 100) . '...';
@@ -91,11 +88,6 @@ class Book extends Product
             );
         }
         return $books;
-    }
-
-    private function getDiscountedPrice($sconto)
-    {
-        return $sconto > 0 ? $this->price - ($this->price * $sconto / 100) : $this->price;
     }
 }
 ?>
